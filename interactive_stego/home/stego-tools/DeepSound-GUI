@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DS_DIR="/home/wineuser/.wine/drive_c/Program Files (x86)/DeepSound 2.0"
+
+if [ ! -d "$DS_DIR" ]; then
+    WINEDEBUG=fixme-all,err-all wine msiexec /i "/home/bin/DeepSoundSetup.msi" /q
+    rm -f ./DeepSound.desktop
+    rm -f ./DeepSound.lnk
+fi
+#WINEDEBUG=fixme-all,err-all LIBGL_ALWAYS_SOFTWARE=1 wine "$DS_DIR/DeepSound.exe"
+wine explorer /desktop=foo,800x600 "$DS_DIR/DeepSound.exe"
+
+exit $?

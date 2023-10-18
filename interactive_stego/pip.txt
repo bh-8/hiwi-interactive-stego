@@ -1,0 +1,6 @@
+asteg
+as4pgc
+docopt
+opencv-python
+pipx
+stegpy

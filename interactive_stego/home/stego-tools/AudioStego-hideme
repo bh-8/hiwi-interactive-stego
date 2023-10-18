@@ -1,0 +1,3 @@
+#!/bin/bash
+/home/bin/AudioStego/build/hideme "$@"
+exit $?

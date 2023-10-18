@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$#" = "0" ]; then
+    /home/bin/snow/snow -h
+    exit 0
+fi
+/home/bin/snow/snow "$@"
+exit $?

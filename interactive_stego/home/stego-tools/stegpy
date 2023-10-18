@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$#" = "0" ]; then
+    stegpy -h
+    exit 0
+fi
+stegpy "$@"
+exit $?

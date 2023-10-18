@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$#" = "0" ]; then
+    WINEDEBUG=fixme-all,err-all wine "/home/bin/id3stego.exe" -h
+    exit 0
+fi
+WINEDEBUG=fixme-all,err-all wine "/home/bin/id3stego.exe" "$@"
+exit $?

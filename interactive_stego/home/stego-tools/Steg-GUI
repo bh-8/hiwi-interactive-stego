@@ -1,0 +1,3 @@
+#!/bin/bash
+/home/bin/Steg-1.1.0.0-Linux-x64/Steg-1.1.0.0-x64.AppImage
+exit $?

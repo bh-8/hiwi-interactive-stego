@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ ! -f "/home/wineuser/.local/bin/stegano-lsb" ]; then
+    echo "Installing stegano, this might take a while..."
+    pipx ensurepath > /dev/null 2>&1
+    pipx install stegano > /dev/null 2>&1
+fi
+if [ ! -f "/home/wineuser/.local/bin/stegano-lsb" ]; then
+    echo "Error: stegano installation failed!"
+    exit 1
+fi
+if [ "$#" = "0" ]; then
+    /home/wineuser/.local/bin/stegano-lsb -h
+    exit 0
+fi
+/home/wineuser/.local/bin/stegano-lsb "$@"
+exit $?

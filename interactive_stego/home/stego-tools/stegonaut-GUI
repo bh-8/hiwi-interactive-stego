@@ -1,0 +1,6 @@
+#!/bin/bash
+cd /home/bin/stegonaut
+npm start
+ERR_CODE=$?
+cd ~
+exit $ERR_CODE

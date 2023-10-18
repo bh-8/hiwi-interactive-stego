@@ -1,0 +1,6 @@
+#!/bin/bash
+cd /home/bin/f5
+java -mx40M Embed "$@"
+ERR_CODE=$?
+cd ~
+exit $ERR_CODE

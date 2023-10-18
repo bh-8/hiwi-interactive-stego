@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$#" = "0" ]; then
+    java -jar "/home/bin/stegj-v1.1.jar" -h
+    exit 0
+fi
+java -jar "/home/bin/stegj-v1.1.jar" "$@"
+exit $?
