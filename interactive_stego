@@ -1,0 +1,24 @@
+#!/bin/bash
+
+IMAGE_NAME="interactive_stego"
+
+echo "Starting container..."
+docker run -it \
+    --rm \
+    --hostname="$(hostname)" \
+    --env="DISPLAY" \
+    --volume="${XAUTHORITY:-${HOME}/.Xauthority}:/root/.Xauthority:ro" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:ro" \
+    --volume=$(realpath ./io):/home/wineuser/io \
+    --cap-add SYS_ADMIN \
+    --device /dev/fuse \
+    birnbaum01/$IMAGE_NAME /bin/bash
+
+#stop running container
+if [ "$(docker container ls | grep "$IMAGE_NAME" | wc -l)" = "1" ]; then
+    DOCKER_ID=$(docker container ls | grep "$IMAGE_NAME" | cut -d" " -f1)
+    echo "Stopping container '$DOCKER_ID'..."
+    docker stop $DOCKER_ID
+fi
+
+exit 0
