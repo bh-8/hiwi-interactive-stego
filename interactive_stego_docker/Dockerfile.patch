@@ -91,7 +91,9 @@ FROM pip-requirements AS git-repositories
         && cd /home/bin/stegonaut \
         && npm install \
         && cd /
+    RUN git clone https://github.com/oneplus-x/DeepSound-2.0.git /home/bin/deepsound
     RUN rm -f \
+        /home/bin/DeepSound-2.0-master.zip \
         /home/bin/hidereveal-bin-1.7.0.zip \
         /home/bin/jphs-jpeg-8a.tar.gz.patch \
         /home/bin/jphs-jpseek.c.patch \
