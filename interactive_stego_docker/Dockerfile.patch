@@ -57,7 +57,7 @@ FROM pip-requirements AS git-repositories
     #    && make && make install \
     #    && ldconfig /usr/local/lib \
     #    && cd /
-    RUN git clone https://github.com/bit-birne/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
+    #RUN git clone https://github.com/bit-birne/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
     RUN git clone https://github.com/h3xx/jphs.git /home/bin/jphs \
         && rm -fdr /home/bin/jphs/jpeg-8a/ \
         && tar -xvzf /home/bin/jphs-jpeg-8a.tar.gz.patch -C /home/bin/jphs \
@@ -105,7 +105,22 @@ FROM pip-requirements AS git-repositories
         /home/bin/Steg-1.1.0.0-Linux-x64.tgz \
         /home/bin/steganabara-1.1.1.tar.gz
 
-FROM git-repositories AS config
+FROM git-repositories AS python-setup
+    RUN apt-get update && apt-get install curl -y
+    ENV PYENV_ROOT="/home/wineuser/.pyenv"
+    ENV PATH="$PYENV_ROOT/bin:$PATH"
+    ENV PATH="$PYENV_ROOT/shims:$PATH"
+    RUN curl https://pyenv.run | bash
+    #python requires depencencies: bzip2 ncurses libffi GNU(readline) sqlite3 ......
+    #move to .bashrc
+    RUN eval '$(pyenv init -)'
+    RUN eval '$(pyenv virtualenv-init -)'
+    #RUN pyenv install 3.10.13
+    #RUN pyenv virtualenv 3.10.13 venv
+    #RUN pyenv activate venv
+    #RUN pip install texttable
+
+FROM python-setup AS config
     RUN locale-gen en_US.UTF-8
     ENV LANG en_US.UTF-8
     COPY pulse-client.conf /root/pulse/client.conf
