@@ -50,13 +50,14 @@ FROM pip-requirements AS git-repositories
     RUN git clone https://github.com/matthewgao/F5-steganography.git /home/bin/f5
     RUN unzip /home/bin/hidereveal-bin-1.7.0.zip -d /home/bin/hidereveal
     RUN git clone https://github.com/RobinDavid/LSB-Steganography.git /home/bin/lsbstego
-    RUN git clone https://github.com/ImageMagick/ImageMagick.git /home/bin/magick \
-        && cd /home/bin/magick \
-        && ./configure --with-modules \
-        && make && make install \
-        && ldconfig /usr/local/lib \
-        && cd /
-    #RUN git clone https://github.com/birnbaum01/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
+    #commented to speed up build process
+    #RUN git clone https://github.com/ImageMagick/ImageMagick.git /home/bin/magick \
+    #    && cd /home/bin/magick \
+    #    && ./configure --with-modules \
+    #    && make && make install \
+    #    && ldconfig /usr/local/lib \
+    #    && cd /
+    RUN git clone https://github.com/bit-birne/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
     RUN git clone https://github.com/h3xx/jphs.git /home/bin/jphs \
         && rm -fdr /home/bin/jphs/jpeg-8a/ \
         && tar -xvzf /home/bin/jphs-jpeg-8a.tar.gz.patch -C /home/bin/jphs \
@@ -111,9 +112,6 @@ FROM git-repositories AS config
     COPY entrypoint.sh /usr/bin/entrypoint
 
     COPY ./home /home/wineuser
-    #RUN find /home/wineuser/detector-tools -type f -exec chmod +x {} \;
-    RUN find /home/wineuser/general-screening-tools -type f -exec chmod +x {} \;
-    RUN find /home/wineuser/steganalysis-tools -type f -exec chmod +x {} \;
-    RUN find /home/wineuser/stego-tools -type f -exec chmod +x {} \;
+    RUN find /home/wineuser -mindepth 1 -maxdepth 1 -type f -exec chmod +x {} \;
 
     WORKDIR /home/wineuser
