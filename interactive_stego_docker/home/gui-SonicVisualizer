@@ -1,0 +1,5 @@
+#!/bin/bash
+/home/bin/SonicVisualiser.AppImage --appimage-extract
+./squashfs-root/AppRun
+rm -drf ./squashfs-root
+exit $?

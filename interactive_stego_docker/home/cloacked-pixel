@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#pyenv init
+echo "Initializing virtual environment..."
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+#enter virtual environment
+pyenv activate venv-2718
+
+#install dependencies
+pip -qq install numpy matplotlib pillow pycrypto
+
+#execution
+python2 "/home/bin/cloackedpixel/lsb.py" "$@"
+err_lvl=$?
+
+#leave virtual environment
+source deactivate
+
+exit $err_lvl

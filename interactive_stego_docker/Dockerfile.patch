@@ -19,26 +19,36 @@ FROM base AS wine
     RUN chmod +x /root/download_gecko_and_mono.sh \
         && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')"
 
-    RUN winetricks -q dotnet40
-
 FROM wine AS apt-packages
     COPY packages.txt /home/packages.txt
+
+    # install dependencies specified in 'apt.txt'
     RUN apt-get update
     RUN DEBIAN_FRONTEND="noninteractive" xargs apt-get -y --no-install-recommends install < /home/packages.txt
+
     RUN rm -rf /var/lib/apt/lists/* && rm -f /home/packages.txt
 
-FROM apt-packages AS pip-requirements
+FROM apt-packages AS python-environment
     COPY requirements.txt /home/requirements.txt
 
+    # install tools specified in 'pip.txt'
     RUN pip3 install --upgrade -r /home/requirements.txt
 
-    RUN wget -O /home/pip27setup.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    RUN python2.7 /home/pip27setup.py
-    RUN pip2.7 install numpy matplotlib pillow pycrypto
+    # install pyenv
+    ENV PYENV_ROOT="/home/wineuser/.pyenv"
+    ENV PATH="$PYENV_ROOT/bin:$PATH"
+    ENV PATH="$PYENV_ROOT/shims:$PATH"
+    RUN curl https://pyenv.run | bash
 
-    RUN rm -f /home/pip27setup.py /home/requirements.txt
+    # install python versions and create environments
+    RUN pyenv install 2.7.18
+    RUN pyenv virtualenv 2.7.18 venv-2718
+    RUN pyenv install 3.10.13
+    RUN pyenv virtualenv 3.10.13 venv-31013
 
-FROM pip-requirements AS git-repositories
+    RUN rm -f /home/requirements.txt
+
+FROM python-environment AS git-repositories
     COPY ./bin /home/bin
 
     RUN git clone https://github.com/danielcardeenas/AudioStego.git /home/bin/AudioStego \
@@ -50,14 +60,13 @@ FROM pip-requirements AS git-repositories
     RUN git clone https://github.com/matthewgao/F5-steganography.git /home/bin/f5
     RUN unzip /home/bin/hidereveal-bin-1.7.0.zip -d /home/bin/hidereveal
     RUN git clone https://github.com/RobinDavid/LSB-Steganography.git /home/bin/lsbstego
-    #commented to speed up build process
-    #RUN git clone https://github.com/ImageMagick/ImageMagick.git /home/bin/magick \
-    #    && cd /home/bin/magick \
-    #    && ./configure --with-modules \
-    #    && make && make install \
-    #    && ldconfig /usr/local/lib \
-    #    && cd /
-    #RUN git clone https://github.com/bit-birne/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
+    RUN git clone https://github.com/ImageMagick/ImageMagick.git /home/bin/magick \
+        && cd /home/bin/magick \
+        && ./configure --with-modules \
+        && make && make install \
+        && ldconfig /usr/local/lib \
+        && cd /
+    RUN git clone https://github.com/bit-birne/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
     RUN git clone https://github.com/h3xx/jphs.git /home/bin/jphs \
         && rm -fdr /home/bin/jphs/jpeg-8a/ \
         && tar -xvzf /home/bin/jphs-jpeg-8a.tar.gz.patch -C /home/bin/jphs \
@@ -105,22 +114,7 @@ FROM pip-requirements AS git-repositories
         /home/bin/Steg-1.1.0.0-Linux-x64.tgz \
         /home/bin/steganabara-1.1.1.tar.gz
 
-FROM git-repositories AS python-setup
-    RUN apt-get update && apt-get install curl -y
-    ENV PYENV_ROOT="/home/wineuser/.pyenv"
-    ENV PATH="$PYENV_ROOT/bin:$PATH"
-    ENV PATH="$PYENV_ROOT/shims:$PATH"
-    RUN curl https://pyenv.run | bash
-    #python requires depencencies: bzip2 ncurses libffi GNU(readline) sqlite3 ......
-    #move to .bashrc
-    RUN eval '$(pyenv init -)'
-    RUN eval '$(pyenv virtualenv-init -)'
-    #RUN pyenv install 3.10.13
-    #RUN pyenv virtualenv 3.10.13 venv
-    #RUN pyenv activate venv
-    #RUN pip install texttable
-
-FROM python-setup AS config
+FROM git-repositories AS config
     RUN locale-gen en_US.UTF-8
     ENV LANG en_US.UTF-8
     COPY pulse-client.conf /root/pulse/client.conf

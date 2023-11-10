@@ -2,7 +2,7 @@
 
 IMAGE_NAME="interactive_stego"
 
-echo "Starting container..."
+echo "Starting container, this may take a while..."
 docker run -it \
     --rm \
     --hostname="$(hostname)" \

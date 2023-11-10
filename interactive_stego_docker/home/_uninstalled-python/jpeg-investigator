@@ -1,7 +1,0 @@
-#!/bin/bash
-if [ "$#" = "0" ]; then
-    python3 -u "/home/bin/jpeg-investigator/jpeg-investigator/jpeg_investigator.py" -h
-    exit 0
-fi
-python3 -u "/home/bin/jpeg-investigator/jpeg-investigator/jpeg_investigator.py" "$@"
-exit $?

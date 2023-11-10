@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#pyenv init
+echo "Initializing virtual environment..."
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+#enter virtual environment
+pyenv activate venv-31013
+
+#install dependencies
+pip -qq install texttable
+
+#execution
+if [ "$#" = "0" ]; then
+    python3 -u "/home/bin/jpeg-investigator/jpeg-investigator/jpeg_investigator.py" -h
+    exit 0
+fi
+python3 -u "/home/bin/jpeg-investigator/jpeg-investigator/jpeg_investigator.py" "$@"
+err_lvl=$?
+
+#leave virtual environment
+source deactivate
+
+exit $err_lvl

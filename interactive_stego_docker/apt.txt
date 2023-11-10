@@ -3,6 +3,7 @@ build-essential
 ca-certificates
 cabextract
 cmake
+curl
 default-jre
 ffmpeg
 fuse
@@ -11,8 +12,15 @@ gosu
 gpg-agent
 libasound2-dev
 libboost-all-dev
+libbz2-dev
+libffi-dev
 libjpeg-dev
 libltdl-dev
+liblzma-dev
+libncurses5-dev
+libncursesw5-dev
+libreadline-dev
+libsqlite3-dev
 libzip-dev
 libzstd-dev
 locales
@@ -25,12 +33,10 @@ python3.8
 python3.8-dev
 python3.8-venv
 python3-pip
-python2.7
-python2.7-dev
-python2.7-tk
 steghide
 stegosuite
 sudo
+tk-dev
 tzdata
 unzip
 winbind

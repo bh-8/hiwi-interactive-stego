@@ -1,3 +1,0 @@
-#!/bin/bash
-/home/bin/SonicVisualiser.AppImage
-exit $?

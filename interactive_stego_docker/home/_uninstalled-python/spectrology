@@ -1,7 +1,0 @@
-#!/bin/bash
-if [ "$#" = "0" ]; then
-    python3 "/home/bin/spectrology/spectrology.py" -h
-    exit 0
-fi
-python3 "/home/bin/spectrology/spectrology.py" "$@"
-exit $?
