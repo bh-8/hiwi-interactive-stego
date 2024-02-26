@@ -1,7 +1,7 @@
 # Docker: Interactive Stego
 interactive docker container featuring many stego-related tools
 - use `./build` to build the image
-- use `./interactive-stego` to enter container
+- use `./interactive_stego` to enter container
 ### overview of provided tools
 | name | tool type | media type | source |
 | --- | --- | --- | --- |
