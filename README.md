@@ -9,7 +9,7 @@ interactive docker container featuring many stego-related tools
 | asteg | stego | Audio (MP3, WAV) | pip |
 | AudioStego | stego | Audio (MP3, WAV) | https://github.com/danielcardeenas/AudioStego.git |
 | binwalk | analysis | general | apt |
-| cloackedpixel | stego & detection | Images (JPG) | https://github.com/livz/cloacked-pixel.git |
+| cloackedpixel | stego & analysis | Images (JPG) | https://github.com/livz/cloacked-pixel.git |
 | DeepSound | stego | Audio (MP3, WAV, FLAC) | https://github.com/oneplus-x/DeepSound-2.0.git |
 | exiftool | info | general | apt |
 | f5 | stego | Images (JPG) | https://github.com/matthewgao/F5-steganography.git |
