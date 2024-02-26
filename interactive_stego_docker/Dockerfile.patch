@@ -57,6 +57,7 @@ FROM python-environment AS git-repositories
         && cmake .. && make \
         && cd /
     RUN git clone https://github.com/livz/cloacked-pixel.git /home/bin/cloackedpixel
+    RUN git clone https://github.com/oneplus-x/DeepSound-2.0.git /home/bin/deepsound
     RUN git clone https://github.com/matthewgao/F5-steganography.git /home/bin/f5
     RUN unzip /home/bin/hidereveal-bin-1.7.0.zip -d /home/bin/hidereveal
     RUN git clone https://github.com/RobinDavid/LSB-Steganography.git /home/bin/lsbstego
@@ -81,6 +82,7 @@ FROM python-environment AS git-repositories
         && cd /
     RUN wget -O /home/bin/jsteg-linux-amd64 https://github.com/lukechampine/jsteg/releases/download/v0.3.0/jsteg-linux-amd64 \
         && chmod +x /home/bin/jsteg-linux-amd64
+    RUN git clone https://git.code.sf.net/p/mp3filestructureanalyser/code /home/bin/mp3-analyzer
     RUN unzip /home/bin/MP3Stego_1_1_19.zip -d /home/bin/MP3Stego || :
     RUN unzip /home/bin/mp3stegz-1.0.zip -d /home/bin
     RUN unzip /home/bin/OpenPuff_release.zip -d /home/bin
@@ -97,11 +99,20 @@ FROM python-environment AS git-repositories
         && chown -R 1010:1010 /home/bin/Steg-1.1.0.0-Linux-x64/ \
         && chmod a+x /home/bin/Steg-1.1.0.0-Linux-x64/Steg-1.1.0.0-x64.AppImage
     RUN tar -xvzf /home/bin/steganabara-1.1.1.tar.gz -C /home/bin
+    RUN git clone https://github.com/abeluck/stegdetect.git /home/bin/stegdetect \
+        && cd /home/bin/stegdetect \
+        && autoreconf -f -i \
+        && linux32 ./configure \
+        && linux32 make \
+        && cd /
     RUN git clone https://github.com/knez/stegonaut.git /home/bin/stegonaut \
         && cd /home/bin/stegonaut \
         && npm install \
         && cd /
-    RUN git clone https://github.com/oneplus-x/DeepSound-2.0.git /home/bin/deepsound
+    RUN git clone https://github.com/zed-0xff/zsteg.git /home/bin/zsteg \
+        && cd /home/bin/zsteg \
+        && gem install zsteg \
+        && cd /
     RUN rm -f \
         /home/bin/DeepSound-2.0-master.zip \
         /home/bin/hidereveal-bin-1.7.0.zip \

@@ -1,4 +1,6 @@
 apt-transport-https
+binutils
+binwalk
 build-essential
 ca-certificates
 cabextract
@@ -6,6 +8,8 @@ cmake
 curl
 default-jre
 ffmpeg
+file
+foremost
 fuse
 git
 gosu
@@ -13,7 +17,10 @@ gpg-agent
 libasound2-dev
 libboost-all-dev
 libbz2-dev
+libexempi8
+libexempi-dev
 libffi-dev
+libimage-exiftool-perl
 libjpeg-dev
 libltdl-dev
 liblzma-dev
@@ -26,13 +33,15 @@ libzstd-dev
 locales
 npm
 outguess
-p7zip
+p7zip-full
+pngcheck
 pulseaudio
 pulseaudio-utils
 python3.8
 python3.8-dev
 python3.8-venv
 python3-pip
+rubygems
 steghide
 stegosuite
 sudo

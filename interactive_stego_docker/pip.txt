@@ -1,4 +1,5 @@
 asteg
 as4pgc
 pipx
+stegoveritas
 stegpy

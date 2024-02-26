@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$#" = "0" ]; then
+    stegoveritas -h
+    exit 0
+fi
+stegoveritas "$@"
+exit $?

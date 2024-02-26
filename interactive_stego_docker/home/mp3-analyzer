@@ -9,14 +9,14 @@ eval "$(pyenv virtualenv-init -)"
 pyenv activate venv-31013
 
 #install dependencies
-pip -qq install texttable
+pip -qq install numpy numba alive-progress texttable
 
 #execution
 if [ "$#" = "0" ]; then
-    python3 -u "/home/bin/jpeg-investigator/jpeg-investigator/jpeg_investigator.py" -h
+    python3 -u "/home/bin/mp3-analyzer/src/mp3filestructureanalyser.py" -h
     exit 0
 fi
-python3 -u "/home/bin/jpeg-investigator/jpeg-investigator/jpeg_investigator.py" "$@"
+python3 -u "/home/bin/mp3-analyzer/src/mp3filestructureanalyser.py" "$@"
 err_lvl=$?
 
 #leave virtual environment

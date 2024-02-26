@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$#" = "0" ]; then
+    echo "Usage: ./stegdetect [-nqV] [-s <float>] [-d <num>] [-t <tests>] [-C <num>] [file.jpg ...]"
+    exit 0
+fi
+/home/bin/stegdetect/stegdetect "$@"
+exit $?
