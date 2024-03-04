@@ -19,6 +19,12 @@ FROM base AS wine
     RUN chmod +x /root/download_gecko_and_mono.sh \
         && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')"
 
+    # create wine32 and wine64 prefixes
+    RUN mkdir "/home/wineuser"
+    RUN WINEPREFIX="/home/wineuser/.wine32" WINEARCH=win32 wine wineboot \
+        && WINEPREFIX="/home/wineuser/.wine32" WINEARCH=win32 winetricks -q dotnet48
+    RUN WINEPREFIX="/home/wineuser/.wine64" wine wineboot
+
 FROM wine AS apt-packages
     COPY packages.txt /home/packages.txt
 
@@ -57,17 +63,18 @@ FROM python-environment AS git-repositories
         && cmake .. && make \
         && cd /
     RUN git clone https://github.com/livz/cloacked-pixel.git /home/bin/cloackedpixel
-    RUN git clone https://github.com/oneplus-x/DeepSound-2.0.git /home/bin/deepsound
+    #RUN git clone https://github.com/oneplus-x/DeepSound-2.0.git /home/bin/deepsound
+    RUN wget -O /home/bin/DeepSoundSetup.msi https://github.com/Jpinsoft/DeepSound/releases/download/v2.1.2401.03/DeepSound_2_1.msi
     RUN git clone https://github.com/matthewgao/F5-steganography.git /home/bin/f5
     RUN unzip /home/bin/hidereveal-bin-1.7.0.zip -d /home/bin/hidereveal
     RUN git clone https://github.com/RobinDavid/LSB-Steganography.git /home/bin/lsbstego
-    RUN git clone https://github.com/ImageMagick/ImageMagick.git /home/bin/magick \
-        && cd /home/bin/magick \
-        && ./configure --with-modules \
-        && make && make install \
-        && ldconfig /usr/local/lib \
-        && cd /
-    RUN git clone https://github.com/bit-birne/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
+    #RUN git clone https://github.com/ImageMagick/ImageMagick.git /home/bin/magick \
+    #    && cd /home/bin/magick \
+    #    && ./configure --with-modules \
+    #    && make && make install \
+    #    && ldconfig /usr/local/lib \
+    #    && cd /
+    RUN git clone https://github.com/bh-8/hiwi-jpeg-investigator.git /home/bin/jpeg-investigator
     RUN git clone https://github.com/h3xx/jphs.git /home/bin/jphs \
         && rm -fdr /home/bin/jphs/jpeg-8a/ \
         && tar -xvzf /home/bin/jphs-jpeg-8a.tar.gz.patch -C /home/bin/jphs \

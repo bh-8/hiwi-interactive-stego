@@ -1,13 +1,8 @@
 #!/bin/bash
 
-#check if current prefix is 32-bit
-if [ ! -d "/home/wineuser/.wine/drive_c/windows/syswow64" ]; then
-    rm -drf "/home/wineuser/.wine"
-fi
-
 if [ "$#" = "0" ]; then
-    WINEDEBUG=fixme-all,err-all wine "/home/bin/id3stego.exe" -h
+    WINEPREFIX="/home/wineuser/.wine64" WINEDEBUG=fixme-all,err-all wine "/home/bin/id3stego.exe" -h
     exit 0
 fi
-WINEDEBUG=fixme-all,err-all wine "/home/bin/id3stego.exe" "$@"
+WINEPREFIX="/home/wineuser/.wine64" WINEDEBUG=fixme-all,err-all wine "/home/bin/id3stego.exe" "$@"
 exit $?

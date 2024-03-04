@@ -1,3 +1,3 @@
 #!/bin/bash
-WINEDEBUG=fixme-all,err-all wine "/home/bin/MP3Stego/Encode.exe" "$@"
+WINEPREFIX="/home/wineuser/.wine64" WINEDEBUG=fixme-all,err-all wine "/home/bin/MP3Stego/Encode.exe" "$@"
 exit $?

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WINEPREFIX="/home/wineuser/.wine32" WINEARCH=win32 wine msiexec /i /home/bin/DeepSoundSetup.msi /quiet
+cd /home/wineuser/.wine32/drive_c/Program\ Files/DeepSound/
+WINEPREFIX="/home/wineuser/.wine32" WINEARCH=win32 WINEDEBUG=fixme-all,err-all LIBGL_ALWAYS_SOFTWARE=1 wine ./DeepSound.exe
+err_lvl=$?
+cd ~/
+
+exit $err_lvl
