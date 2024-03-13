@@ -10,7 +10,7 @@ interactive docker container featuring many stego-related tools
 | AudioStego | stego | Audio (MP3, WAV) | `./AudioStego`<br/>`./AudioStego <carrier_file> <message_file>`<br/>`./AudioStego <stego_file> -f` | https://github.com/danielcardeenas/AudioStego.git |
 | binwalk | analysis | general | `./binwalk -h`<br/>`./binwalk <file>` | apt |
 | cloackedpixel | stego & analysis | Images (JPG) | `./cloacked-pixel`<br/>`./cloacked-pixel hide <carrier_file> <message_file> <key>`<br/>`./cloacked-pixel extract <stego_file> <message_file> <key>`<br/>`./cloacked-pixel analyse <file>` | https://github.com/livz/cloacked-pixel.git |
-| [TODO] DeepSound | stego | Audio (MP3, WAV, FLAC) | `./DeepSound`<br/>GUI | https://github.com/Jpinsoft/DeepSound.git |
+| [TODO: update to 2.1] DeepSound | stego | Audio (MP3, WAV, FLAC) | `./DeepSound`<br/>GUI | https://github.com/Jpinsoft/DeepSound.git |
 | exiftool | info | general | `./exiftool <file>` | apt |
 | f5 | stego | Images (JPG) | `./f5-embed -e <message_file> [-p <key>] <carrier_file> [stego_file]`<br/>`./f5-extract -e <message_file> [-p <key>] <stego_file>` | https://github.com/matthewgao/F5-steganography.git |
 | ffmpeg | info | Audio (MP3), Video (MP4) | `./ffmpeg -h`<br/>`./ffmpeg [options] [[infile options] -i infile]... {[outfile options] outfile}...` | apt |
@@ -19,7 +19,7 @@ interactive docker container featuring many stego-related tools
 | foremost | analysis | general | `./foremost -h`<br/>`./foremost [options] <file>` | apt |
 | id3stego | stego | Audio (MP3) | `./id3stego -h`<br/>`./id3stego -m put -a <carrier_file> -o <message_file>`<br/>`./id3stego -m get -a <stego_file> -o <message_file>` | https://github.com/FrozenBurrito/id3stego |
 | LSBSteg | stego | Images (PNG) | `./LSBSteg -h`<br/>`./LSBSteg encode -i <carrier_file> -o <stego_file> -f <message_file>`<br/>`./LSBSteg decode -i <stego_file> -o <message_file>` | https://github.com/RobinDavid/LSB-Steganography.git |
-| [TODO] magick | info | Images (JPG, PNG, ...) | https://github.com/ImageMagick/ImageMagick.git |
+| magick | info | Images (JPG, PNG, ...) | `./magick` | https://github.com/ImageMagick/ImageMagick.git |
 | jpeg-investigator | analysis | Images (JPG) | `./jpeg-investigator -h`<br/>`./jpeg-investigator [-jf <json_file>] [-es <segments>] [-et] [-ed <output_directory>] [-f] [-s] <jpeg_file> [jpeg_file ...]` | https://github.com/bh-8/hiwi-jpeg-investigator.git |
 | jphide/jpseek | stego | Images (JPG) | `./jphide <carrier_file> <stego_file> <message_file>`<br/>`./jpseek <stego_file> <message_file>` | https://github.com/h3xx/jphs.git |
 | jsteg | stego | Images (JPG) | `./jsteg`<br/>`./jsteg hide <carrier_file> <message_file> <stego_file>`<br/>`./jsteg reveal <stego_file> <message_file>` | https://github.com/lukechampine/jsteg.git |
